@@ -37,3 +37,7 @@ npm run build
 ```sh
 npm run test:unit
 ```
+### Run tests in watch mode
+```sh 
+npx vitest
+```

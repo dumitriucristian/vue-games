@@ -1,8 +1,6 @@
 <script setup="ts">
 
 import GameHeader from './GameHeader.vue';
-import CorrectAnswers from './CorrectAnswers.vue';
-import WrongAnswers from './WrongAnswers.vue';
 import Answers from './Answers.vue';
 import {ref} from 'vue';
 
@@ -121,6 +119,7 @@ function setSecondSelection(tile, index)
 function removeTile(){
   //remove from tile
   tiles.value.splice(firstIndex.value,1);
+  //after splice decrement secondIndex.value because one element was removed
   if (secondIndex.value > firstIndex.value) secondIndex.value -= 1;
   tiles.value.splice(secondIndex.value, 1);
 }
