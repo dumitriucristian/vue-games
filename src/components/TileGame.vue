@@ -2,9 +2,25 @@
 
 import GameHeader from './GameHeader.vue';
 import Answers from './Answers.vue';
+import TileGame from '../classes/TileGameClass.ts';
 import {ref} from 'vue';
 
-const tiles = ref([
+
+// Create an instance of the TileGame class
+const game = new TileGame();
+
+// Bind the class properties to the component
+const tiles = game.tiles;
+const totalMoves = game.totalMoves;
+const wrongMoves = game.wrongMoves;
+const goodMoves = game.goodMoves;
+const correctAnswers = game.correctAnswers;
+const wrongAnswers = game.wrongAnswers;
+
+// Bind the connect method
+const connect = (tile, index) => game.connect(tile, index);
+
+/*const tiles = ref([
   {
     number:0,
     name: "zero"
@@ -56,17 +72,14 @@ function connect(tile, index)
     if (firstSelection.value && secondSelection.value) {
 
       //if same selection made twice
-      if (firstSelection.value.name == secondSelection.value.name) {
+      if (firstSelection.value.name === secondSelection.value.name) {
         resetSelections();
-
-
-        //check for correctanswer
+       //check for correctanswer 
       }else  if(firstSelection.value.number === secondSelection.value.number)  {
 
         addCorrectAnswer();
         removeTile();
         resetSelections();
-        //reset index
         goodMoves.value++
       
       }else{
@@ -146,6 +159,7 @@ function resetSelections()
   secondSelection.value = null;
 
 }
+  */
 </script>
 
 <template>

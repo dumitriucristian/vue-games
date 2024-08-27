@@ -25,21 +25,22 @@ describe('TileGame Component', () => {
         const wrapper = mount(TileGame);
 
         //Access component internal data
-        const tilesData = wrapper.vm.tiles
+        const vm = wrapper.vm  as any;
+        const tiles = vm.game.tiles.value.length;
 
 
          // Expected tiles data
-    const expectedTiles = [
-        { number: 0, name: "zero" },
-        { number: 1, name: "un" },
-        { number: 2, name: "dos" },
-        { number: 0, name: "0" },
-        { number: 1, name: "1" },
-        { number: 2, name: "2" }
-      ]
+        const expectedTiles = [
+            { number: 0, name: "zero" },
+            { number: 1, name: "un" },
+            { number: 2, name: "dos" },
+            { number: 0, name: "0" },
+            { number: 1, name: "1" },
+            { number: 2, name: "2" }
+        ]
   
       // Assert that the component's data matches the expected data
-      expect(tilesData).toEqual(expectedTiles)
+      expect(vm.game.tiles.value).toEqual(expectedTiles)
     })
 })
 
@@ -56,7 +57,8 @@ describe('TileGame Component', () => {
       await tileElements[3].trigger('click') // "0"
   
       // Access the updated tiles data
-      const updatedTiles = wrapper.vm.tiles
+      const vm = wrapper.vm as any;
+      const updatedTiles = vm.game.tiles.value;
   
       // Check that the matched tiles are removed (length should be 4 instead of 6)
       expect(updatedTiles.length).toBe(4)
@@ -82,7 +84,8 @@ describe('TileGame Component', () => {
       await tileElements[1].trigger('click') // "un"
   
       // Access the updated tiles data
-      const updatedTiles = wrapper.vm.tiles
+      const vm = wrapper.vm as any; 
+      const updatedTiles = vm.game.tiles.value
   
       // Check that no tiles are removed (length should still be 6)
       expect(updatedTiles.length).toBe(6)
