@@ -39,6 +39,12 @@ export default class TileGame {
       },
       {
         number:2, name: "2"
+      },
+      {
+        number:3,name: "3"
+      },
+      {
+        number:4, name: "4"
       }
     ]);
 
@@ -59,11 +65,10 @@ export default class TileGame {
 
     this.firstIndex = ref<number | null>(null);
     this.secondIndex = ref<number | null>(null);
+
+    this.shuffle();
     
   }
-
-
-
 
   connect(tile: Tile, index: number){
       this.setSelection(tile, index);
@@ -80,6 +85,7 @@ export default class TileGame {
           this.addCorrectAnswer();
           this.removeTile();
           this.resetSelections();
+          this.shuffle();
           this.goodMoves.value++
         
         }else{
@@ -166,6 +172,10 @@ export default class TileGame {
     this.firstSelection.value = null;
     this.secondSelection.value = null;
 
+  }
+
+  private shuffle(){
+    this.tiles.value = this.tiles.value.sort(() => Math.random() - 0.5);
   }
 
 
