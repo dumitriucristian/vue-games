@@ -1,19 +1,20 @@
 <script setup="ts">
 
-import GameHeader from './GameHeader.vue';
+
 import Answers from './Answers.vue';
+import Moves from './Moves.vue';
 import TileGame from '../classes/TileGameClass.ts';
-import {ref} from 'vue';
 
 
 // Create an instance of the TileGame class
 const game = new TileGame();
 
+
 // Bind the class properties to the component
 const tiles = game.tiles;
-const totalMoves = game.totalMoves;
-const wrongMoves = game.wrongMoves;
-const goodMoves = game.goodMoves;
+
+
+
 const correctAnswers = game.correctAnswers;
 const wrongAnswers = game.wrongAnswers;
 
@@ -30,7 +31,7 @@ const connect = (tile, index) => game.connect(tile, index);
     </div>
   </div>
 
- <GameHeader :totalMoves="totalMoves" :wrongMoves="wrongMoves" :goodMoves="goodMoves"/> 
+ <Moves :goodMoves="game.moves.state.goodMoves" :totalMoves="game.moves.state.totalMoves" :wrongMoves="game.moves.state.wrongMoves"/> 
  
  <Answers :answers="correctAnswers" title="Good Answers"/>
  <Answers :answers="wrongAnswers" title="Wrong answers"/>

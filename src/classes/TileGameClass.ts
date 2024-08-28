@@ -1,4 +1,5 @@
 import { ref } from  'vue';
+import Moves from '../classes/MovesClass';
 
 interface Tile {
   number: number,
@@ -7,66 +8,56 @@ interface Tile {
 
 export default class TileGame {
 
-  tiles
-  totalMoves
-  wrongMoves
-  goodMoves
-  correctAnswers
-  wrongAnswers
-  title
-  firstSelection
-  secondSelection
-  firstIndex
-  secondIndex
+  //answers initializers with default empty array of type Tile
+  correctAnswers = ref<Tile[][]>([]);
+  wrongAnswers = ref<Tile[][]>([]);
+  title =ref<string>();
 
+  //selection initializers
+  firstSelection = ref<Tile | null>(null);
+  secondSelection = ref<Tile | null>(null);
+
+  firstIndex = ref<number | null>(null);
+  secondIndex = ref<number | null>(null);
+
+  tiles = ref<Tile[]>([
+    {
+      number:0, name: "zero"
+    },
+    {
+      number:1, name: "un"
+    },
+    {
+      number:2, name: "dos"
+    },
+    {
+      number:3, name: "tres"
+    },
+    {
+      number:4, name: "quatro"
+    },
+    {
+      number:0, name: "0"
+    },
+    {
+      number:1,name: "1"
+    },
+    {
+      number:2, name: "2"
+    },
+    {
+      number:3, name: "3"
+    },
+    {
+      number:4, name: "4"
+    }
+  ]);
+
+  moves;
   constructor(){
-
-    this.tiles = ref<Tile[]>([
-      {
-        number:0, name: "zero"
-      },
-      {
-        number:1, name: "un"
-      },
-      {
-        number:2, name: "dos"
-      },
-      {
-        number:0, name: "0"
-      },
-      {
-        number:1,name: "1"
-      },
-      {
-        number:2, name: "2"
-      },
-      {
-        number:3,name: "3"
-      },
-      {
-        number:4, name: "4"
-      }
-    ]);
-
-    //moves initializers
-    this.totalMoves = ref(0);
-    this.wrongMoves = ref(0);
-    this.goodMoves  = ref(0);
-
-
-    //answers initializers with default empty array of type Tile
-    this.correctAnswers = ref<Tile[][]>([]);
-    this.wrongAnswers = ref<Tile[][]>([]);
-    this.title =ref<string>();
-
-    //selection initializers
-    this.firstSelection = ref<Tile | null>(null);
-    this.secondSelection = ref<Tile | null>(null);
-
-    this.firstIndex = ref<number | null>(null);
-    this.secondIndex = ref<number | null>(null);
-
+    this.moves = new Moves();
     this.shuffle();
+
     
   }
 
@@ -86,15 +77,15 @@ export default class TileGame {
           this.removeTile();
           this.resetSelections();
           this.shuffle();
-          this.goodMoves.value++
+          this.moves.addGoodMove();
         
         }else{
           //increment wrong moves
-          this.addCorrectAnswer
           this.addWrongAnswer();
           this.resetSelections();
-      }
-      this.totalMoves.value++
+          this.moves.addWrongMove();
+        }
+     // this.totalMoves.value++
 
       //show good moves and bad boves at the end
       if(this.tiles.value.length === 0) {
